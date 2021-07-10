@@ -10,7 +10,7 @@ The wiki should now be built in the HTML root:
 
     >>> import os
     >>> import os.path as p
-    >>> print '\n'.join(os.listdir(CONFIG.html_dir))
+    >>> print '\n'.join(sorted(os.listdir(CONFIG.html_dir)))
     _list.html
     an_empty_file.html
     example.css

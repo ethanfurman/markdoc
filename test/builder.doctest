@@ -90,10 +90,8 @@ Documents
 
 You can render whole documents using `Builder.render_document()`:
 
-    >>> print b.render_document('file1.md')
-    <?xml version="1.0" encoding="utf-8"?>
     <!DOCTYPE html>
-    <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+    <html>
     <head>
       <title>Hello</title>
       <link rel="stylesheet" type="text/css" href="/example.css" />
@@ -104,9 +102,8 @@ You can render whole documents using `Builder.render_document()`:
     </html>
     
     >>> print b.render_document('file2.md')
-    <?xml version="1.0" encoding="utf-8"?>
     <!DOCTYPE html>
-    <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+    <html>
     <head>
       <title>World</title>
       <link rel="stylesheet" type="text/css" href="/example.css" />

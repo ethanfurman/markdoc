@@ -36,7 +36,7 @@ Markdoc’s behavior:
     # Rendering
     markdown:
       safe-mode: false
-      output-format: xhtml1
+      output-format: html
       extensions: [codehilite, def_list]
       extension-configs:
         codehilite:
@@ -195,10 +195,10 @@ hyphens (`-`) are all converted to underscores (`_`) in the key strings.
 :   Disallow raw HTML in Markdown documents. This can be either `false`,
     `remove`, `replace` or `escape`.
 
-`output-format` (default `xhtml1`)
-:   Switch between rendering XHTML or HTML. Can be either `xhtml1`, `xhtml`,
-    `html4` or `html` (the general ones will always refer to the latest
-    version). It is strongly suggested that you use XHTML.
+`output-format` (default `html`)
+:   Switch between rendering XHTML or HTML. Can be either `html5`, `html4`
+    or `html` (the general ones will always refer to the latest
+    version).
 
 ### Serving
 

@@ -43,16 +43,23 @@ class Builder(object):
         
         Assuming a wiki root of `/a/b/c`:
         
-        * `a/b/c/wiki/index.md` => `[('index', None)]`
+        * `a/b/c/wiki/index.md` => `[('index', 'Home', None)]`
         
         * `a/b/c/wiki/subdir/index.md` =>
-          `[('index', '/'), ('subdir', None)]`
+          `[('index', 'Home', '/'), ('subdir', 'Subdir', None)]`
         
         * `a/b/c/wiki/subdir/file.md` =>
-          `[('index', '/'), ('subdir', '/subdir/'), ('file', None)]
+          `[('index', 'Home', '/'), ('subdir', 'Subdir', '/subdir/'), ('file', 'File', None)]
         
         """
         
+        # fp = path.strip('/')
+        # fs_rel_fn = p.sep.join(fp.split('/'))
+        # fs_abs_fn = p.join(self.config.wiki_dir, fs_rel_fn)
+        # contents = read_from(fs_abs_fn)
+        # slug = p.splitext(p.basename(fs_abs_fn))[0]
+        # title = get_title(slug, contents)
+
         if p.isabs(path):
             path = self.doc_cache.relative(path)
         
@@ -61,17 +68,17 @@ class Builder(object):
         
         if not rel_components:
             if terminus == 'index':
-                return [('index', None)]
-            return [('index', '/'), (terminus, None)]
+                return [('index', 'Home', None)]
+            return [('index', 'Home', '/'), (terminus, terminus.capitalize(), None)]
         elif terminus == 'index':
             terminus = p.splitext(rel_components.pop())[0]
         
-        crumbs = [('index', '/')]
+        crumbs = [('index', 'Home', '/')]
         for component in rel_components:
-            path = '%s%s/' % (crumbs[-1][1], component)
-            crumbs.append((component, path))
+            path = '%s%s/' % (crumbs[-1][2], component)
+            crumbs.append((component, component.capitalize(), path))
         
-        crumbs.append((terminus, None))
+        crumbs.append((terminus, terminus.capitalize(), None))
         return crumbs
     
     def walk(self):
@@ -190,13 +197,13 @@ class Builder(object):
         
         context = self.listing_context(path)
         
-        crumbs = [('index', '/')]
+        crumbs = [('index', 'Home', '/')]
         if path not in ['', '/']:
             current_dir = ''
             for component in path.strip('/').split('/'):
-                crumbs.append((component, '%s/%s/' % (current_dir, component)))
+                crumbs.append((component, component.capitalize(), '%s/%s/' % (current_dir, component)))
                 current_dir += '/' + component
-        crumbs.append((jinja2.Markup('<span class="list-crumb">list</span>'), None))
+        crumbs.append((jinja2.Markup('<span class="list-crumb">list</span>'), '.', None))
         
         context['crumbs'] = crumbs
         context['make_relative'] = lambda href: make_relative(path + '/', href)

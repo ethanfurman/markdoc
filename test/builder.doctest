@@ -8,30 +8,30 @@ Filesystem Interaction
 You can generate breadcrumbs for a document, based on its absolute path (which will be relativized to the wiki root):
 
     >>> b.crumbs(p.join(WIKI_ROOT, 'wiki', 'index.md'))
-    [('index', None)]
+    [('index', 'Home', None)]
     
     >>> b.crumbs(p.join(WIKI_ROOT, 'wiki', 'somefile.md'))
-    [('index', '/'), ('somefile', None)]
+    [('index', 'Home', '/'), ('somefile', 'Somefile', None)]
     
     >>> b.crumbs(p.join(WIKI_ROOT, 'wiki', 'somedir', 'index.md'))
-    [('index', '/'), ('somedir', None)]
+    [('index', 'Home', '/'), ('somedir', 'Somedir', None)]
     
     >>> b.crumbs(p.join(WIKI_ROOT, 'wiki', 'somedir', 'something.md'))
-    [('index', '/'), ('somedir', '/somedir/'), ('something', None)]
+    [('index', 'Home', '/'), ('somedir', 'Somedir', '/somedir/'), ('something', 'Something', None)]
 
 You can also just use relative paths (relative to `WIKI_ROOT/wiki`):
 
     >>> b.crumbs('index.md')
-    [('index', None)]
+    [('index', 'Home', None)]
     
     >>> b.crumbs('somefile.md')
-    [('index', '/'), ('somefile', None)]
+    [('index', 'Home', '/'), ('somefile', 'Somefile', None)]
     
     >>> b.crumbs(p.join('somedir', 'index.md'))
-    [('index', '/'), ('somedir', None)]
+    [('index', 'Home', '/'), ('somedir', 'Somedir', None)]
     
     >>> b.crumbs(p.join('somedir', 'something.md'))
-    [('index', '/'), ('somedir', '/somedir/'), ('something', None)]
+    [('index', 'Home', '/'), ('somedir', 'Somedir', '/somedir/'), ('something', 'Something', None)]
 
 You can also walk through all files in the wiki, using the `walk()` method:
 

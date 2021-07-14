@@ -239,6 +239,7 @@ def sync_html(config, args):
     
     log.debug('rsync completed')
 
+    build_listing(config, args)
 
 ## Building
 
@@ -268,7 +269,6 @@ def build(config, args):
             fp.close()
     
     sync_html(config, args)
-    build_listing(config, args)
 
 
 @command

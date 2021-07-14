@@ -1,16 +1,16 @@
 # Rendering
 
-This page will describe the process which documents undergo on their way from Markdoc to XHTML.
+This page will describe the process which documents undergo on their way from Markdoc to HTML.
 
 ## Step 1: Markdown Rendering
 
-Each page is converted from Markdown to XHTML. This uses the Markdown library for Python, which comes with a number of extensions that you can enable in your [configuration](/configuration). For example, I like to use the `codehilite`, `def_list` and `headerid` Markdown extensions, but by default Markdoc wikis will not use any.
+Each page is converted from Markdown to HTML. This uses the Markdown library for Python, which comes with a number of extensions that you can enable in your [configuration](/configuration). For example, I like to use the `codehilite`, `def_list` and `headerid` Markdown extensions, but by default Markdoc wikis will not use any.
 
-The Markdown conversion results in XHTML data which is not tied to a page, so it’s not enough to display to a browser. That’s where the templating comes in.
+The Markdown conversion results in HTML data which is not tied to a page, so it’s not enough to display to a browser. That’s where the templating comes in.
 
 ## Step 2: Template Rendering
 
-Markdoc uses [Jinja2][] to render this partial XHTML to full XHTML documents. Jinja2 is a fast and flexible templating system for Python; if you are interested in writing your own templates, it would be wise to first consult its official documentation.
+Markdoc uses [Jinja2][] to render this partial HTML to full HTML documents. Jinja2 is a fast and flexible templating system for Python; if you are interested in writing your own templates, it would be wise to first consult its official documentation.
 
   [jinja2]: http://jinja2.pocoo.org
 
@@ -23,13 +23,14 @@ If `use-default-templates` is `false` and the templates are not defined in your 
 
 ### Documents
 
-`document.html` is used to convert the partial XHTML for a Markdown document into full, browser-ready XHTML. It receives a context much like the following:
+`document.html` is used to convert the partial HTML for a Markdown document into full, browser-ready HTML. It receives a context much like the following:
 
     :::python
     {
-      "content": "<h1>...", # The XHTML for the document.
+      "content": "<h1>...", # The HTML for the document.
       "title": "Some Document", # The extracted title of the document.
-      "crumbs": [("index", "/"), ("some-document", None)] # Breadcrumbs
+      "crumbs": [("index", "Home", "/"), ("some-document", "Some-Document", None)], # Bread crumbs
+      "path": "some-document" # Root-relative path to document
     }
 
 The `config` variable is also (globally) set to the configuration dictionary for the current wiki.

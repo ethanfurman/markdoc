@@ -8,7 +8,7 @@ A wiki would be nothing without pages. In Markdoc, pages are written in
   [df-markdown]: http://daringfireball.net/projects/markdown/
 
 > Markdown allows you to write using an easy-to-read, easy-to-write plain text 
-> format, then convert it to structurally valid XHTML (or HTML).
+> format, then convert it to structurally valid HTML.
 > 
 > [...]
 > 

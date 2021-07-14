@@ -160,7 +160,7 @@ These settings affect Markdoc’s behavior during the build process.
 
 ### Rendering
 
-These settings determine how Markdoc converts Markdown text into XHTML. They are
+These settings determine how Markdoc converts Markdown text into HTML. They are
 all defined as sub-parameters inside the `markdown` dictionary. These parameters
 correspond to keyword arguments to the `markdown.Markdown` constructor, although
 hyphens (`-`) are all converted to underscores (`_`) in the key strings.
@@ -196,7 +196,7 @@ hyphens (`-`) are all converted to underscores (`_`) in the key strings.
     `remove`, `replace` or `escape`.
 
 `output-format` (default `html`)
-:   Switch between rendering XHTML or HTML. Can be either `html5`, `html4`
+:   Switch between rendering HTML. Can be either `html5`, `html4`
     or `html` (the general ones will always refer to the latest
     version).
 

@@ -187,6 +187,7 @@ class Builder(object):
         context['content'] = self.render(path)
         context['title'] = self.title(path)
         context['crumbs'] = self.crumbs(path)
+        context['path'] = p.splitext(path)[0]
         context['make_relative'] = lambda href: make_relative(path, href)
         
         template = self.config.template_env.get_template('document.html')
@@ -236,7 +237,7 @@ def get_title(filename, data):
         return match.group(1)
     
     name, extension = p.splitext(p.basename(filename))
-    return re.sub(r'[-_]+', ' ', name).title()
+    return re.sub(r'_+', ' ', name).title()
 
 
 def humansize(size, base=1024):

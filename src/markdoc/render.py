@@ -35,6 +35,9 @@ class RelativeLinksTreeProcessor(markdown.treeprocessors.Treeprocessor):
 def make_relative(curr_path, href):
     """Given a current path and a href, return an equivalent relative path."""
     
+    # switch backslash to slash to properly handle Windows file paths
+    curr_path = curr_path.replace('\\', '/')
+
     curr_list = curr_path.lstrip('/').split('/')
     href_list = href.lstrip('/').split('/')
     

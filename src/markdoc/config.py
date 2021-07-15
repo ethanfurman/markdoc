@@ -62,7 +62,7 @@ class Config(dict):
     __metaclass__ = ConfigMeta
     
     def __init__(self, config_file, config):
-        super(Config, self).__init__(flatten(config))
+        super(Config, self).__init__(flatten(config, ['markdown', 'meta']))
         
         self['meta.config-file'] = config_file
         self['meta.root'] = p.dirname(config_file)
@@ -123,10 +123,10 @@ class Config(dict):
         return cls(filename, config)
 
 
-def flatten(dictionary, prefix=''):
+def flatten(dictionary, keys=None, prefix=''):
     
     """
-    Flatten nested dictionaries into dotted keys.
+    Flatten selected keys of nested dictionaries into dotted keys.
     
         >>> d = {
         ...     'a': {
@@ -139,13 +139,18 @@ def flatten(dictionary, prefix=''):
         ...           }
         ...      },
         ...      'g': 4,
+        ...      'h': {
+        ...           '1': 5,
+        ...      },
         ... }
     
-        >>> sorted(flatten(d).items())
-        [('a.b', 1), ('a.c.d', 2), ('a.c.e.f', 3), ('g', 4)]
+        >>> sorted(flatten(d, ['a']).items())
+        [('a.b', 1), ('a.c.d', 2), ('a.c.e.f', 3), ('g', 4), ('h', {'1': 5})]
     """
     
     for key in dictionary.keys():
+        if keys and key not in keys:
+            continue
         value = dictionary.pop(key)
         if not isinstance(value, dict):
             dictionary[prefix + key] = value

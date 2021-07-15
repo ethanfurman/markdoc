@@ -80,7 +80,22 @@ class Builder(object):
         
         crumbs.append((terminus, terminus.capitalize(), None))
         return crumbs
-    
+
+    def active_nav(self, path):
+        """
+        Find which element of ``config['nav']['pages']`` is active.
+        """
+        if 'nav' not in self.config or 'pages' not in self.config['nav']:
+            return None
+        if p.isabs(path):
+            path = self.doc_cache.relative(path)
+        path = p.splitext(path)[0]
+        while path:
+            if path in self.config['nav']['pages']:
+                return path
+            path = p.split(path)[0]
+        return None    
+
     def walk(self):
         
         """

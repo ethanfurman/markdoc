@@ -21,13 +21,8 @@
       </title>
       
       {% block css %}
-        <!-- YUI CSS reset, fonts, base -->
-        {{ html.cssimport(("http://yui.yahooapis.com/combo?" +
-                           "3.0.0/build/cssreset/reset-min.css&" +
-                           "3.0.0/build/cssfonts/fonts-min.css&" +
-                           "3.0.0/build/cssbase/base-min.css") | e) }}
-        
-        {{ html.cssimport(make_relative("/media/css/style.css")) }}
+        {{ html.cssimport(make_relative("/media/css/basic.css")) }}
+        {{ html.cssimport(make_relative("/media/css/elements.css")) }}
         {{ html.cssimport(make_relative("/media/css/pygments.css")) }}
       {% endblock %}
       
@@ -54,11 +49,27 @@
   <body {% block body_attrs %}{% endblock %}>
     {% block body %}
       
-      {% block body_header %}
-        {% block crumbs %}
-          {{ breadcrumbs.crumbs(crumbs) }}
-        {% endblock crumbs %}
-      {% endblock body_header %}
+      <header>
+        {% block nav %}
+        {% if 'nav' in config %}
+          <nav>
+            <ul>
+              {% for page in config['nav']['pages']) %}
+              <li {% if page == active_nav %} class="active" {% endif %}>
+                  <a href="{{make_relative("/" + page + ".html")}}">
+                    {{ config['nav']['labels'][page] }}
+                  </a></li>
+              {% endfor %}
+            </ul>
+          </nav>
+        {% endif %}
+        {% endblock nav %}
+        {% block body_header %}
+          {% block crumbs %}
+            {{ breadcrumbs.crumbs(crumbs) }}
+          {% endblock crumbs %}
+        {% endblock body_header %}
+      </header>
       
       <div id="content">
         {% block content_header %}
@@ -70,22 +81,34 @@
         {% block content_footer %}
         {% endblock content_footer %}
         
-        <hr class="clear" />
       </div> <!-- div#content -->
       
-      {% block body_footer %}
-      <div id="footer">
-        <p>
-          {% if 'wiki-name' in config %}
-            {{ config['wiki-name']|e }} —
+      <footer>
+        {% block body_footer %}
+          {% if 'footer-text' in config %}
+            {{config['footer-text']}}
+          {% else %}
+            {% if 'wiki-name' in config %}
+              {{ config['wiki-name']|e }} —
+            {% endif %}
+            Powered by <a href="http://markdoc.org/">Markdoc</a>.
           {% endif %}
-          Powered by <a href="http://markdoc.org/">Markdoc</a>.
-        </p>
-      </div>
-      {% endblock body_footer %}
-    
+        {% endblock body_footer %}
+      </footer>
+      
     {% endblock body %}
     
-    <hr class="clear" />
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+          processEscapes: true
+        }
+      });
+    </script>  
+    <script type="text/javascript"
+      src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
+
   </body>
 </html>
